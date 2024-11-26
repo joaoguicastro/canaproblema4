@@ -1,7 +1,6 @@
 import itertools
 import math
 
-# Coordenadas das cidades (x, y)
 cidades = {
     "Fortaleza": (0, 0),
     "Juazeiro do Norte": (250, 400),
