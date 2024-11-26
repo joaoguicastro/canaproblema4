@@ -1,0 +1,43 @@
+# Definir as coordenadas das cidades
+cidades = {nome_da_cidade: (x, y), ...}
+
+# Função para calcular a distância Euclidiana
+função calcular_distância(cidade1, cidade2):
+    coordenadas1 = cidades[cidade1]
+    coordenadas2 = cidades[cidade2]
+    distância = raiz_quadrada((coordenadas2.x - coordenadas1.x)^2 + (coordenadas2.y - coordenadas1.y)^2)
+    retornar distância
+
+# Função principal para encontrar a melhor e pior rota
+função caixeiro_viajante(cidades):
+    inicializar menor_distância = infinito
+    inicializar maior_distância = 0
+    inicializar melhor_rota = vazio
+    inicializar pior_rota = vazio
+
+    todas_as_permutações = gerar_todas_as_permutações(cidades)
+
+    para cada permutação em todas_as_permutações:
+        inicializar distância_total = 0
+
+        para cada par de cidades consecutivas na permutação:
+            adicionar calcular_distância(cidade_atual, próxima_cidade) em distância_total
+
+        adicionar calcular_distância(última_cidade, cidade_inicial) em distância_total
+
+        se distância_total < menor_distância:
+            menor_distância = distância_total
+            melhor_rota = permutação
+
+        se distância_total > maior_distância:
+            maior_distância = distância_total
+            pior_rota = permutação
+
+    retornar melhor_rota, menor_distância, pior_rota, maior_distância
+
+# Executar o algoritmo
+melhor_rota, menor_distância, pior_rota, maior_distância = caixeiro_viajante(cidades)
+
+# Mostrar resultados
+mostrar "Melhor rota: ", melhor_rota, " com distância total: ", menor_distância
+mostrar "Pior rota: ", pior_rota, " com distância total: ", maior_distância
