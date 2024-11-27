@@ -14,13 +14,13 @@ cidades = {
     "Itapipoca": (180, 120),
 }
 
-# Função para calcular a distância Euclidiana
+# distância Euclidiana
 def distancia(cidade1, cidade2):
     x1, y1 = cidades[cidade1]
     x2, y2 = cidades[cidade2]
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
-# Algoritmo força bruta para encontrar a melhor e pior rotas
+# força bruta para encontrar a melhor e pior rotas
 def caixeiro_viajante(cidades):
     menor_distancia = float("inf")
     melhor_caminho = None
@@ -29,35 +29,35 @@ def caixeiro_viajante(cidades):
     pior_caminho = None
     
     todas_as_cidades = list(cidades.keys())
-    
-    for permutacao in itertools.permutations(todas_as_cidades):
+    #embaralhamento das cidades
+    for permutacao in itertools.permutations(todas_as_cidades):         # Permutaçao e uma maneira de criar todas as ordens possiveis
         distancia_total = 0
+        #calcular a distancia entre uma cidade e outra 
         for i in range(len(permutacao) - 1):
             distancia_total += distancia(permutacao[i], permutacao[i + 1])
         # Voltar para a cidade inicial
         distancia_total += distancia(permutacao[-1], permutacao[0])
         
-        # Atualizar menor distância (melhor caminho)
+        # melhor caminho
         if distancia_total < menor_distancia:
             menor_distancia = distancia_total
             melhor_caminho = permutacao
         
-        # Atualizar maior distância (pior caminho)
+        # pior caminho
         if distancia_total > maior_distancia:
             maior_distancia = distancia_total
             pior_caminho = permutacao
     
     return melhor_caminho, menor_distancia, pior_caminho, maior_distancia
 
-# Executar o algoritmo
 melhor_caminho, menor_distancia, pior_caminho, maior_distancia = caixeiro_viajante(cidades)
 
-# Mostrar a melhor rota
+#print melhor rota
 print("Melhor rota:")
 print(" -> ".join(melhor_caminho))
 print(f"Distância total: {menor_distancia:.2f} km")
 
-# Mostrar a distância entre cada cidade no melhor caminho
+# print das distancias
 print("\nDetalhes da melhor rota:")
 for i in range(len(melhor_caminho) - 1):
     cidade1 = melhor_caminho[i]
@@ -66,12 +66,12 @@ for i in range(len(melhor_caminho) - 1):
 # Voltar à cidade inicial
 print(f"{melhor_caminho[-1]} -> {melhor_caminho[0]}: {distancia(melhor_caminho[-1], melhor_caminho[0]):.2f} km")
 
-# Mostrar a pior rota
+# print pior rota
 print("\nPior rota:")
 print(" -> ".join(pior_caminho))
 print(f"Distância total: {maior_distancia:.2f} km")
 
-# Mostrar a distância entre cada cidade no pior caminho
+# print das distancias da pior rota
 print("\nDetalhes da pior rota:")
 for i in range(len(pior_caminho) - 1):
     cidade1 = pior_caminho[i]
